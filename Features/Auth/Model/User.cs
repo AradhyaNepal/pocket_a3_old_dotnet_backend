@@ -3,42 +3,76 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PocketA3.Features.Auth.Model
 {
-    
-   
-   
+
+    //Todo: Should you Separate enum refactor into another file?
+    public enum GenderType
+    {
+        Male,
+        Female,
+        Other
+    }
+
+    public enum MBTIType
+    {
+        INTJ,
+        ENTJ,
+        ESFP,
+        ISFP,
+
+        ENFP,
+        ISTJ,
+        INFP,
+        ESTJ,
+
+        ENTP,
+        ISFJ,
+        INTP,
+        ESFJ,
+
+        ENFJ,
+        ISTP,
+        INFJ,
+        ESTP,
+    }
+
+
     public class User
     
 
     {
-        //Todo: Separate class refactor
-        public enum Gender
-        {
-            Male,
-            Female,
-            Other
-        }
+     
 
         [Required]
      
-        public int Id { get; set; }
-        
-        [Required]
-        public string FullName { get; set; }
+        public required int Id { get; set; }
 
         [Required]
-        public string Email { get; set; }
+        public required string Email { get; set; }
 
         [Required]
-        public string PasswordHash { get; set; }
+        public required string FullName { get; set; }
 
-        public DateTime BirthDate { get; set; }
+        public string? NickName { get; set; }
 
-        public Gender gender { get; set; }
-        public string ProfileUrl { get; set; }
+        public string? ProfileUrl { get; set; }
 
-        public string NickName { get; set; }
+        [Required]
+        public required DateTime BirthDate { get; set; }
 
-     
+        [Required]
+        public required GenderType Gender { get; set; }
+
+        [Required]
+        public required string Country { get; set; }
+
+        [Required]
+        public required MBTIType MBTI { get; set; }
+
+        [Required]
+        public required string PasswordHash { get; set; }
+
+
+
 
     }
 }
