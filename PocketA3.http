@@ -1,0 +1,6 @@
+@PocketA3_HostAddress = http://localhost:5088
+
+GET {{PocketA3_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
