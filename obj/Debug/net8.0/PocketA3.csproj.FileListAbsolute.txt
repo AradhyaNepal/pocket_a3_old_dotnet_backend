@@ -30,3 +30,4 @@ D:\PocketA3\API\obj\Debug\net8.0\refint\PocketA3.dll
 D:\PocketA3\API\obj\Debug\net8.0\PocketA3.pdb
 D:\PocketA3\API\obj\Debug\net8.0\PocketA3.genruntimeconfig.cache
 D:\PocketA3\API\obj\Debug\net8.0\ref\PocketA3.dll
+D:\PocketA3\API\obj\Debug\net8.0\PocketA3.sourcelink.json

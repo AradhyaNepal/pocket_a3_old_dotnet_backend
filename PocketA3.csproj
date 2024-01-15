@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Auth\NewFolder1\**" />
+    <Content Remove="Features\Auth\NewFolder1\**" />
+    <EmbeddedResource Remove="Features\Auth\NewFolder1\**" />
+    <None Remove="Features\Auth\NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
