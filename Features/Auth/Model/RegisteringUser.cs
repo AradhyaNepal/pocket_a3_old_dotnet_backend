@@ -2,7 +2,7 @@
 
 namespace PocketA3.Features.Auth.Model
 {
-    public class RegisterUser
+    public class RegisteringUser
     {
         [Required]
         public int Id { get; set; }

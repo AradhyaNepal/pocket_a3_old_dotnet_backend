@@ -5,7 +5,7 @@ using PocketA3.Features.Auth.Model;
 
 namespace PocketA3.Features.Auth.Controller
 {
-    [Route("api/auth/login")]//Todo: Refactor
+    [Route("api/v1/auth/login")]//Todo: Refactor
     [ApiController]
     public class LoginController : ControllerBase
     {
