@@ -2,5 +2,11 @@
 {
     public class RegisteringUser
     {
+        void main()
+        {
+            User user = new();
+
+        }
     }
+
 }
