@@ -8,6 +8,7 @@ namespace PocketA3.Features.Auth.Model
    
     public class User
     
+
     {
         //Todo: Separate class refactor
         public enum Gender
