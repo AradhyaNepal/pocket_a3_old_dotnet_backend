@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PocketA3.Features.Auth.Model;
 using PocketA3.Features.Auth.Model.DTO;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PocketA3.Features.Auth.Controller
 {
@@ -16,7 +17,6 @@ namespace PocketA3.Features.Auth.Controller
 
         [HttpPost("s1-email")]
         public IActionResult RegisterEmail([FromBody]RegisterEmailRequestDTO registerEmailRequest) {
-            //Todo: Scneario when even already exists
             var isRegistered = _db.User.AsNoTracking().Any(e=>e.Email==registerEmailRequest.Email);
             if (isRegistered) {
                 return Conflict("User Already Registered To The System");
@@ -24,12 +24,12 @@ namespace PocketA3.Features.Auth.Controller
             var registeringUser = _db.RegisteringUser.FirstOrDefault(e=>e.Email==registerEmailRequest.Email);
             if (registeringUser == null)
             {
-                var data = _db.RegisteringUser.Add(new RegisteringUser { Email = registerEmailRequest.Email });
+                var newRegisteringUser = _db.RegisteringUser.Add(new RegisteringUser { Email = registerEmailRequest.Email });
                 _db.SaveChanges();
-                return Ok(new RegistrationIdDTO { RegitrationId =data.Entity.Id});
+                return Ok(RegistrationRestoreDTO.FromRegisteringUser(newRegisteringUser.Entity));
             }
             else {
-                return Ok()
+                return Ok(RegistrationRestoreDTO.FromRegisteringUser(registeringUser));
                 
             }
          
