@@ -21,7 +21,7 @@ namespace PocketA3.Features.Auth.Controller
             if (isRegistered) {
                 return Conflict("User Already Registered To The System");
             }
-            var registeringUser = _db.User.AsNoTracking().FirstOrDefault(e=>e.Email==registerEmailRequest.Email);
+            var registeringUser = _db.RegisteringUser.FirstOrDefault(e=>e.Email==registerEmailRequest.Email);
             if (registeringUser == null)
             {
                 var data = _db.RegisteringUser.Add(new RegisteringUser { Email = registerEmailRequest.Email });
@@ -29,10 +29,11 @@ namespace PocketA3.Features.Auth.Controller
                 return Ok(data.Entity.Id);//Todo
             }
             else {
-                return Ok(registeringUser);
+                return Ok(registeringUser);//Todo
             }
          
         }
+
 
         [HttpPost("s2-public-details")]
         public IActionResult PublicDetails(RegisterPublicDetailsRequestDTO publicDetailsRequest )

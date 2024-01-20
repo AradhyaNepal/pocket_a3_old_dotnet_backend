@@ -17,10 +17,9 @@ namespace PocketA3.Features.Auth.Model
 
         public string? ProfileUrl { get; set; }
 
-        public DateTime? BirthDate { get; set; }
-
         public GenderType? Gender { get; set; }
 
+        public DateTime? BirthDate { get; set; }
 
         public string? Country { get; set; }
 
@@ -30,6 +29,16 @@ namespace PocketA3.Features.Auth.Model
         public double? WeightKg { get; set; }
 
         public double? FatPercentage { get; set; }
+
+        public bool HaveFilledPublicDetails() {
+            return FullName != null && NickName != null && ProfileUrl != null && Gender != null;
+        }
+
+        public bool HaveFilledPrivateDetails() {
+            return BirthDate != null && Country != null && MBTI != null && HeightCM != null && WeightKg != null && FatPercentage != null;
+        }
+
+
 
     }
 
