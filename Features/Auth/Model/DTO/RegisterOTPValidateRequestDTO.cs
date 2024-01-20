@@ -8,6 +8,6 @@ namespace PocketA3.Features.Auth.Model.DTO
        public required string OTP { get; set; }
 
         [Required]
-        public required string Email { get; set; }
+        public required string RegistrationId { get; set; }
     }
 }

@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Features\Auth\Repository\" />
+    <Folder Include="JsonClass\" />
   </ItemGroup>
 
 </Project>

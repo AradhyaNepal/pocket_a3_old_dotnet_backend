@@ -5,6 +5,6 @@ namespace PocketA3.Features.Auth.Model.DTO
     public class RegisterOTPResendRequestDTO
     {
         [Required]
-        public required string Email { get; set; }
+        public required string RegistrationId { get; set; }
     }
 }

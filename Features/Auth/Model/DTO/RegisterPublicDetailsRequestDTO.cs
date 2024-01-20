@@ -7,12 +7,15 @@ namespace PocketA3.Features.Auth.Model.DTO
         [Required]
         public required string FullName { get; set; }
 
+        [Required]
+        public required GenderType Gender { get; set; }
+
         public string? NickName { get; set; }
 
         public string? ProfileUrl { get; set; }
 
         [Required]
-        public required string Email { get; set; }
+        public required string RegistrationId { get; set; }
 
 
     }

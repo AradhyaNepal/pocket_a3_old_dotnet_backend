@@ -21,6 +21,7 @@ namespace PocketA3.Features.Auth.Model
 
         public GenderType? Gender { get; set; }
 
+
         public string? Country { get; set; }
 
         public MBTIType? MBTI { get; set; }

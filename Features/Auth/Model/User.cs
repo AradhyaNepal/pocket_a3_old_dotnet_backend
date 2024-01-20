@@ -7,32 +7,32 @@ namespace PocketA3.Features.Auth.Model
     //Todo: Should you Separate enum refactor into another file?
     public enum GenderType
     {
-        Male,
-        Female,
-        Other
+        Male=1,
+        Female=2,
+        Other=3
     }
 
     public enum MBTIType
     {
-        INTJ,
-        ENTJ,
-        ESFP,
-        ISFP,
+        INTJ=1,
+        ENTJ=2,
+        ESFP = 3,
+        ISFP=4,
 
-        ENFP,
-        ISTJ,
-        INFP,
-        ESTJ,
+        ENFP=5,
+        ISTJ=6,
+        INFP=7,
+        ESTJ=8,
 
-        ENTP,
-        ISFJ,
-        INTP,
-        ESFJ,
+        ENTP=9,
+        ISFJ=10,
+        INTP=11,
+        ESFJ=12,
 
-        ENFJ,
-        ISTP,
-        INFJ,
-        ESTP,
+        ENFJ=13,
+        ISTP=14,
+        INFJ=15,
+        ESTP=16,
     }
 
 
