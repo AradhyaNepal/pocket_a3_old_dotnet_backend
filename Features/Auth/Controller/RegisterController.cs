@@ -26,10 +26,11 @@ namespace PocketA3.Features.Auth.Controller
             {
                 var data = _db.RegisteringUser.Add(new RegisteringUser { Email = registerEmailRequest.Email });
                 _db.SaveChanges();
-                return Ok(data.Entity.Id);//Todo
+                return Ok(new RegistrationIdDTO { RegitrationId =data.Entity.Id});
             }
             else {
-                return Ok(registeringUser);//Todo
+                return Ok()
+                
             }
          
         }

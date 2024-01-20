@@ -22,6 +22,6 @@ namespace PocketA3.Features.Auth.Model.DTO
 
 
         [Required]
-        public required string RegistrationId { get; set; }
+        public required int RegistrationId { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace PocketA3.Features.Auth.Model.DTO
         public string? ProfileUrl { get; set; }
 
         [Required]
-        public required string RegistrationId { get; set; }
+        public required int RegistrationId { get; set; }
 
 
     }
