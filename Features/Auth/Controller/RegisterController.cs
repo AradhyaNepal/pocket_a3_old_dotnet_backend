@@ -14,11 +14,11 @@ namespace PocketA3.Features.Auth.Controller
         }
 
         [HttpPost("s1-email")]
-        public IActionResult RegisterEmail(RegisterEmailRequestDTO registerEmailRequest) {
+        public IActionResult RegisterEmail([FromBody]RegisterEmailRequestDTO registerEmailRequest) {
             //Todo: Scneario when even already exists
-           var data= _db.RegisteringUser.Add(new());
-            _db.SaveChanges();
-            return Ok(data.Entity.Id);
+            //var data = _db.RegisteringUser.Add(new RegisteringUser { Id = 1 ,Email=registerEmailRequest.Email});
+            //_db.SaveChanges();
+            //return Ok();
         }
 
         [HttpPost("s2-public-details")]

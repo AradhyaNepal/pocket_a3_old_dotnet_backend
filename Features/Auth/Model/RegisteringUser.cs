@@ -7,7 +7,7 @@ namespace PocketA3.Features.Auth.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public required int Id { get; set; }
 
         public string? Email { get; set; }
 
