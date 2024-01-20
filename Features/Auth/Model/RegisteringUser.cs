@@ -7,7 +7,7 @@ namespace PocketA3.Features.Auth.Model
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public required int Id { get; set; }
+        public int Id { get; set; }
 
         public string? Email { get; set; }
 
@@ -25,6 +25,11 @@ namespace PocketA3.Features.Auth.Model
         public string? Country { get; set; }
 
         public MBTIType? MBTI { get; set; }
+        public double? HeightCM { get; set; }
+
+        public double? WeightKg { get; set; }
+
+        public double? FatPercentage { get; set; }
 
     }
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PocketA3.Features.Auth;
 
@@ -11,9 +12,11 @@ using PocketA3.Features.Auth;
 namespace PocketA3.Migrations
 {
     [DbContext(typeof(AuthApiContext))]
-    partial class AuthApiContextModelSnapshot : ModelSnapshot
+    [Migration("20240120060240_Model Bug fix")]
+    partial class ModelBugfix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,17 +42,11 @@ namespace PocketA3.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("FatPercentage")
-                        .HasColumnType("float");
-
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Gender")
                         .HasColumnType("int");
-
-                    b.Property<double?>("HeightCM")
-                        .HasColumnType("float");
 
                     b.Property<int?>("MBTI")
                         .HasColumnType("int");
@@ -60,7 +57,13 @@ namespace PocketA3.Migrations
                     b.Property<string>("ProfileUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("WeightKg")
+                    b.Property<double?>("fatPercentage")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("heightCM")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("weightKg")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -87,18 +90,12 @@ namespace PocketA3.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("FatPercentage")
-                        .HasColumnType("float");
-
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
-
-                    b.Property<double?>("HeightCM")
-                        .HasColumnType("float");
 
                     b.Property<int>("MBTI")
                         .HasColumnType("int");
@@ -113,7 +110,13 @@ namespace PocketA3.Migrations
                     b.Property<string>("ProfileUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("WeightKg")
+                    b.Property<double?>("fatPercentage")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("heightCM")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("weightKg")
                         .HasColumnType("float");
 
                     b.HasKey("Id");

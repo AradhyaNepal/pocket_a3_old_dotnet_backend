@@ -68,6 +68,12 @@ namespace PocketA3.Features.Auth.Model
         [Required]
         public required MBTIType MBTI { get; set; }
 
+        public double? HeightCM { get; set; }
+
+        public double? WeightKg { get; set; }
+
+        public double? FatPercentage { get; set; }
+
         [Required]
         public required string PasswordHash { get; set; }
 

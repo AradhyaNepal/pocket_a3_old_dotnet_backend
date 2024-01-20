@@ -16,9 +16,9 @@ namespace PocketA3.Features.Auth.Controller
         [HttpPost("s1-email")]
         public IActionResult RegisterEmail([FromBody]RegisterEmailRequestDTO registerEmailRequest) {
             //Todo: Scneario when even already exists
-            //var data = _db.RegisteringUser.Add(new RegisteringUser { Id = 1 ,Email=registerEmailRequest.Email});
-            //_db.SaveChanges();
-            return Ok();
+            var data = _db.RegisteringUser.Add(new RegisteringUser {Email=registerEmailRequest.Email});
+            _db.SaveChanges();
+            return Ok(data.Entity.Id);
         }
 
         [HttpPost("s2-public-details")]
