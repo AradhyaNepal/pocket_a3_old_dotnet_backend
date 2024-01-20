@@ -17,6 +17,7 @@ namespace PocketA3.Features.Auth.Controller
 
         [HttpPost("s1-email")]
         public IActionResult RegisterEmail([FromBody]RegisterEmailRequestDTO registerEmailRequest) {
+            //Todo: OTP is required in all process else registering user data is sensitive
             var isRegistered = _db.User.AsNoTracking().Any(e=>e.Email==registerEmailRequest.Email);
             if (isRegistered) {
                 return Conflict("User Already Registered To The System");
@@ -26,10 +27,10 @@ namespace PocketA3.Features.Auth.Controller
             {
                 var newRegisteringUser = _db.RegisteringUser.Add(new RegisteringUser { Email = registerEmailRequest.Email });
                 _db.SaveChanges();
-                return Ok(RegistrationRestoreDTO.FromRegisteringUser(newRegisteringUser.Entity));
+                return Ok(RegistrationRestoreDTO.FromRegisteringUser(newRegisteringUser.Entity,true));
             }
             else {
-                return Ok(RegistrationRestoreDTO.FromRegisteringUser(registeringUser));
+                return Ok(RegistrationRestoreDTO.FromRegisteringUser(registeringUser,false));
                 
             }
          

@@ -5,10 +5,10 @@ namespace PocketA3.Features.Auth.Model.DTO
     public class RegisterPublicDetailsRequestDTO
     {
         [Required]
-        public required string FullName { get; set; }
+        public string? FullName { get; set; }
 
         [Required]
-        public required GenderType Gender { get; set; }
+        public GenderType? Gender { get; set; }
 
         public string? NickName { get; set; }
 
