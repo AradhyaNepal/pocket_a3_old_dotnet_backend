@@ -9,7 +9,7 @@ namespace PocketA3.Features.Auth.Controller
     public class RegisterController : ControllerBase
     {
         private readonly AuthApiContext _db;
-        RegisterController(AuthApiContext db) {
+        public RegisterController(AuthApiContext db) {
             _db = db;
         }
 
@@ -18,7 +18,7 @@ namespace PocketA3.Features.Auth.Controller
             //Todo: Scneario when even already exists
             //var data = _db.RegisteringUser.Add(new RegisteringUser { Id = 1 ,Email=registerEmailRequest.Email});
             //_db.SaveChanges();
-            //return Ok();
+            return Ok();
         }
 
         [HttpPost("s2-public-details")]
