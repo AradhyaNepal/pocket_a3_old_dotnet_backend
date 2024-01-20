@@ -8,11 +8,17 @@ namespace PocketA3.Features.Auth.Controller
     [Route("api/v1/auth/register")]//Todo: Refactor
     public class RegisterController : ControllerBase
     {
+        private readonly AuthApiContext _db;
+        RegisterController(AuthApiContext db) {
+            _db = db;
+        }
 
         [HttpPost("s1-email")]
         public IActionResult RegisterEmail(RegisterEmailRequestDTO registerEmailRequest) {
-
-            return Ok();
+            //Todo: Scneario when even already exists
+           var data= _db.RegisteringUser.Add(new());
+            _db.SaveChanges();
+            return Ok(data.Entity.Id);
         }
 
         [HttpPost("s2-public-details")]
