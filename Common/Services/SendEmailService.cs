@@ -8,7 +8,7 @@ namespace PocketA3.Common.Services
 
         public Task SendEmailAsync(string email,string subject,string message) {
             var mail = "pocket.a3.app@gmail.com";
-            var password = System.Environment.GetEnvironmentVariable("pocket.a3");
+            var password = Environment.GetEnvironmentVariable("pocket.a3");
             var client = new SmtpClient("smtp.gmail.com", 587)
             {
                 EnableSsl=true,

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PocketA3.Common.Services;
 using PocketA3.Features.Auth.Model;
 using PocketA3.Features.Auth.Model.DTO;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -16,7 +17,13 @@ namespace PocketA3.Features.Auth.Controller
         }
 
         [HttpPost("s1-email")]
-        public IActionResult RegisterEmail([FromBody]RegisterEmailRequestDTO registerEmailRequest) {
+        async public Task<IActionResult> RegisterEmail([FromBody]RegisterEmailRequestDTO registerEmailRequest) {
+            System.Console.WriteLine("Message"+ Environment.GetEnvironmentVariable("test"));
+            return Ok(Environment.GetEnvironmentVariable("test"));
+            Random random = new();
+            var otp = random.Next(100000, 999999);
+            await(new SendEmailService()).SendEmailAsync(email:registerEmailRequest.Email,message:"OTP",subject:otp.ToString());
+            return Ok(otp);
             //Todo: OTP is required in all process else registering user data is sensitive
             var isRegistered = _db.User.AsNoTracking().Any(e=>e.Email==registerEmailRequest.Email);
             if (isRegistered) {
@@ -28,7 +35,7 @@ namespace PocketA3.Features.Auth.Controller
         }
 
         [HttpPost("s2-validate-otp")]
-        public IActionResult ValidateOTP(RegisterOTPValidateRequestDTO otpValidateRequest)
+        public IActionResult ValidateOTP([FromBody] RegisterEmailRequestDTO registerEmailRequest)
         {
            
             var registeringUser = _db.RegisteringUser.FirstOrDefault(e => e.Email == registerEmailRequest.Email);
@@ -51,18 +58,14 @@ namespace PocketA3.Features.Auth.Controller
             return Ok();
         }
 
-        private async IActionResult GenerateAndSendOTP() {
-            Random random = new();
-            var otp=random.Next(100000, 999999);
-            await SendOTP(otp);
+        private  IActionResult GenerateAndSendOTP() {
+     
             //Todo: Send this otp to email of the user
 
             return Ok();
         }
 
-        async private Task SendOTP(int otp) { 
-        
-        }
+      
 
 
         [HttpPost("s2-public-details")]
