@@ -22,18 +22,37 @@ namespace PocketA3.Features.Auth.Controller
             if (isRegistered) {
                 return Conflict("User Already Registered To The System");
             }
-            var registeringUser = _db.RegisteringUser.FirstOrDefault(e=>e.Email==registerEmailRequest.Email);
+            return GenerateAndSendOTP();
+
+         
+        }
+
+        [HttpPost("s2-validate-otp")]
+        public IActionResult ValidateOTP(RegisterOTPValidateRequestDTO otpValidateRequest)
+        {
+           
+            var registeringUser = _db.RegisteringUser.FirstOrDefault(e => e.Email == registerEmailRequest.Email);
             if (registeringUser == null)
             {
                 var newRegisteringUser = _db.RegisteringUser.Add(new RegisteringUser { Email = registerEmailRequest.Email });
                 _db.SaveChanges();
-                return Ok(RegistrationRestoreDTO.FromRegisteringUser(newRegisteringUser.Entity,true));
+                return Ok(RegistrationRestoreDTO.FromRegisteringUser(newRegisteringUser.Entity, true));
             }
-            else {
-                return Ok(RegistrationRestoreDTO.FromRegisteringUser(registeringUser,false));
-                
+            else
+            {
+                return Ok(RegistrationRestoreDTO.FromRegisteringUser(registeringUser, false));
+
             }
-         
+        }
+
+        [HttpPost("s2-resend-otp")]
+        public IActionResult ResendOTP(RegisterEmailRequestDTO emailRequestRequest)
+        {
+            return Ok();
+        }
+
+        private IActionResult GenerateAndSendOTP() {
+            return Ok();
         }
 
 
@@ -51,16 +70,7 @@ namespace PocketA3.Features.Auth.Controller
             return Ok();
         }
 
-        [HttpPost("s4-validate-otp")]
-        public IActionResult ValidateOTP(RegisterOTPValidateRequestDTO otpValidateRequest) {
-            return Ok();
-        }
-
-        [HttpPost("s4-resend-otp")]
-        public IActionResult ResendOTP(RegisterEmailRequestDTO emailRequestRequest)
-        {
-            return Ok();
-        }
+     
 
 
         [HttpPost("s5-set-password")]

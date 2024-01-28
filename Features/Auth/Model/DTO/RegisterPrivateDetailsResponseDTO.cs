@@ -19,9 +19,5 @@ namespace PocketA3.Features.Auth.Model.DTO
         public double? WeightKg { get; set; }
 
         public double? FatPercentage { get; set; }
-
-
-        [Required]
-        public required int RegistrationId { get; set; }
     }
 }

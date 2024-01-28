@@ -2,7 +2,7 @@
 
 namespace PocketA3.Features.Auth.Model.DTO
 {
-    public class RegisterPublicDetailsRequestDTO
+    public class RegisterPublicDetailsResponseDTO
     {
         [Required]
         public string? FullName { get; set; }
@@ -13,16 +13,6 @@ namespace PocketA3.Features.Auth.Model.DTO
         public string? NickName { get; set; }
 
         public string? ProfileUrl { get; set; }
-
-
-
-
-
-        [Required]
-        public required string OTP { get; set; }
-        [Required]
-        public required int RegistrationId { get; set; }
-
 
     }
 }
