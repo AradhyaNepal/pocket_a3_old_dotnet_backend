@@ -18,8 +18,7 @@ namespace PocketA3.Features.Auth.Controller
 
         [HttpPost("s1-email")]
         async public Task<IActionResult> RegisterEmail([FromBody]RegisterEmailRequestDTO registerEmailRequest) {
-            System.Console.WriteLine("Message"+ Environment.GetEnvironmentVariable("test"));
-            return Ok(Environment.GetEnvironmentVariable("test"));
+      
             Random random = new();
             var otp = random.Next(100000, 999999);
             await(new SendEmailService()).SendEmailAsync(email:registerEmailRequest.Email,message:"OTP",subject:otp.ToString());
