@@ -51,8 +51,17 @@ namespace PocketA3.Features.Auth.Controller
             return Ok();
         }
 
-        private IActionResult GenerateAndSendOTP() {
+        private async IActionResult GenerateAndSendOTP() {
+            Random random = new();
+            var otp=random.Next(100000, 999999);
+            await SendOTP(otp);
+            //Todo: Send this otp to email of the user
+
             return Ok();
+        }
+
+        async private Task SendOTP(int otp) { 
+        
         }
 
 
