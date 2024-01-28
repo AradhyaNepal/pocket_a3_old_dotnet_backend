@@ -30,11 +30,11 @@ namespace PocketA3.Features.Auth.Model
 
         public double? FatPercentage { get; set; }
 
-        public bool HaveFilledPublicDetails() {
+        public bool HaveFilledAllPublic() {
             return FullName != null && NickName != null && ProfileUrl != null && Gender != null;
         }
 
-        public bool HaveFilledPrivateDetails() {
+        public bool HaveFilledAllPrivate() {
             return BirthDate != null && Country != null && MBTI != null && HeightCM != null && WeightKg != null && FatPercentage != null;
         }
 

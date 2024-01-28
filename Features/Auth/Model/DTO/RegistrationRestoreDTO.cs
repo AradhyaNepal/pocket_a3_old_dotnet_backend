@@ -7,37 +7,33 @@ namespace PocketA3.Features.Auth.Model.DTO
     {
         public bool isNewlyCreated { get; set; }
         public required int RegitrationId { get; set; }
-        public required bool FilledPublicDetails { get; set; }
+        public required bool FilledAllPublic { get; set; }
 
-        public required bool FilledPrivateDetails { get; set; }
+        public required bool FilledAllPrivate { get; set; }
 
-        public required RegisterPublicDetailsRequestDTO PublicDetails { get; set; }
-        public required RegisterPrivateDetailsRequestDTO PrivateDetails { get; set; }
+        public required RegisterPublicDetailsResponseDTO? PublicDetails { get; set; }
+        public required RegisterPrivateDetailsResponseDTO? PrivateDetails { get; set; }
 
         static public RegistrationRestoreDTO FromRegisteringUser(RegisteringUser registeringUser,bool isNewlyCreated) {
             return new RegistrationRestoreDTO {
-                isNewlyCreated=isNewlyCreated,
-                RegitrationId=registeringUser.Id,
-                FilledPublicDetails= registeringUser.HaveFilledPublicDetails(),
-               PublicDetails =new RegisterPublicDetailsRequestDTO { 
+                RegitrationId = registeringUser.Id,
+                isNewlyCreated =isNewlyCreated,
+                FilledAllPublic= registeringUser.HaveFilledAllPublic(),
+                FilledAllPrivate = registeringUser.HaveFilledAllPrivate(),
+                PublicDetails = isNewlyCreated?null:new RegisterPublicDetailsResponseDTO { 
                    FullName=registeringUser.FullName,
                    ProfileUrl=registeringUser.ProfileUrl,
                    Gender=registeringUser.Gender,
                    NickName=registeringUser.NickName,
-                   RegistrationId=registeringUser.Id,
                },
-                FilledPrivateDetails = registeringUser.HaveFilledPrivateDetails(),
-                PrivateDetails =new RegisterPrivateDetailsRequestDTO { 
+                PrivateDetails = isNewlyCreated ? null : new RegisterPrivateDetailsResponseDTO { 
                    BirthDate=registeringUser.BirthDate,
                    Country=registeringUser.Country,
                    MBTI=registeringUser.MBTI,
                    HeightCM=registeringUser.HeightCM,
                    WeightKg=registeringUser.WeightKg,
                    FatPercentage=registeringUser.FatPercentage,
-                   RegistrationId=registeringUser.Id,
                },
-
-               
             }; 
         }
     }
