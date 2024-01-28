@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PocketA3")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+797548fd0df0031a4127ff46a1749b08e20d53e5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c6c6af5d1255da5054c81f1b90d5aceb896c3ce6")]
 [assembly: System.Reflection.AssemblyProductAttribute("PocketA3")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PocketA3")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

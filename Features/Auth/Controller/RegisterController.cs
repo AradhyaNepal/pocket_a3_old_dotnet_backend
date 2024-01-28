@@ -21,7 +21,7 @@ namespace PocketA3.Features.Auth.Controller
       
             Random random = new();
             var otp = random.Next(100000, 999999);
-            await(new SendEmailService()).SendEmailAsync(email:registerEmailRequest.Email,message:"OTP",subject:otp.ToString());
+            await(new SendEmailService()).SendGmail(email:registerEmailRequest.Email,body:otp.ToString(),subject:"OTP");
             return Ok(otp);
             //Todo: OTP is required in all process else registering user data is sensitive
             var isRegistered = _db.User.AsNoTracking().Any(e=>e.Email==registerEmailRequest.Email);
