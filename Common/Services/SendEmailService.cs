@@ -26,13 +26,12 @@ namespace PocketA3.Common.Services
             ClientSecret=clientSecret,
             };
             return await GoogleWebAuthorizationBroker.AuthorizeAsync(secrets, new[] {GmailService.Scope.GmailSend },"user",CancellationToken.None);
-           
-           
-        
         }
 
         async public Task SendGmail(string email, string subject, string body) {
+            Console.WriteLine("Logging in");
             var credentials = await Login();
+            Console.WriteLine("Logged in");
             Message emailMessage = CreateEmail("pocket.a3.app@gmail.com", email, subject,body );
             using (var gmailService = new GmailService(new BaseClientService.Initializer() { HttpClientInitializer = credentials })) {
                 gmailService.Users.Messages.Send(emailMessage, "me").Execute();
