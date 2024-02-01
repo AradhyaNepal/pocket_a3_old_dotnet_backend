@@ -4,7 +4,7 @@ using PocketA3.Common.Services;
 using PocketA3.Features.Auth.Model;
 using PocketA3.Features.Auth.Model.DTO;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-
+//rrrr hxcp afjp osow
 namespace PocketA3.Features.Auth.Controller
 {
     [ApiController]
@@ -17,18 +17,12 @@ namespace PocketA3.Features.Auth.Controller
         }
 
         [HttpPost("s1-email")]
-        async public Task<IActionResult> RegisterEmail([FromBody]RegisterEmailRequestDTO registerEmailRequest) {
-      
-            Random random = new();
-            var otp = random.Next(100000, 999999);
-            await(new SendEmailService()).SendGmail(email:registerEmailRequest.Email,body:otp.ToString(),subject:"OTP");
-            return Ok(otp);
-            //Todo: OTP is required in all process else registering user data is sensitive
+        public IActionResult RegisterEmail([FromBody]RegisterEmailRequestDTO registerEmailRequest) {
             var isRegistered = _db.User.AsNoTracking().Any(e=>e.Email==registerEmailRequest.Email);
             if (isRegistered) {
                 return Conflict("User Already Registered To The System");
             }
-            return GenerateAndSendOTP();
+            return GenerateAndSendOTP(registerEmailRequest.Email);
 
          
         }
@@ -57,10 +51,23 @@ namespace PocketA3.Features.Auth.Controller
             return Ok();
         }
 
-        private  IActionResult GenerateAndSendOTP() {
-     
-            //Todo: Send this otp to email of the user
-
+        private  IActionResult GenerateAndSendOTP(string email) {
+            Random random = new();
+            var otp = random.Next(100000, 999999);
+            (new SendEmailService()).SendMail(toMail: email, body: otp.ToString(), subject: "OTP");
+            var oldOTP= _db.RegisterOTP.Where(e => e.RegisteringUser.Email == email);
+            if (oldOTP.Count()>0) {
+                for (int i = 0; i < oldOTP.Count(); i++) {
+                    oldOTP.ElementAt(i).ExpiryDate = DateTime.Now;
+                }
+            }
+            var registeringUser = _db.RegisteringUser.FirstOrDefault(e=>e.Email==email);
+            var otpSalt = HashAndSalt.GenerateSalt();
+            var hashedOTP = HashAndSalt.HashInput(input:otp.ToString(),salt:otpSalt);
+            //Todo: Check registering user is null
+            //Todo: Save duration in seperate place
+            _db.RegisterOTP.Add(new RegisterOTP() { ExpiryDate=DateTime.Now.AddMinutes(10), RegisteringUser=registeringUser!,OTPHashed=hashedOTP,OTPSalt=otpSalt,});
+            _db.SaveChanges();
             return Ok();
         }
 

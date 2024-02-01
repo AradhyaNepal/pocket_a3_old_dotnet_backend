@@ -16,60 +16,22 @@ namespace PocketA3.Common.Services
         
 
         //Todo: Refactor with DI
-        async public Task<UserCredential> Login() {
-    
-            var clientId = Environment.GetEnvironmentVariable("pocket-a3-clientId");
-            var clientSecret = Environment.GetEnvironmentVariable("pocket-a3-clientsecret");
-            ClientSecrets secrets = new()
-            { 
-            ClientId=clientId,
-            ClientSecret=clientSecret,
-            };
-            return await GoogleWebAuthorizationBroker.AuthorizeAsync(secrets, new[] {GmailService.Scope.GmailSend },"user",CancellationToken.None);
+        public void SendMail(string toMail,string subject,string body) {
+            var email = "pocket.a3.app@gmail.com";
+            var appPassword = Environment.GetEnvironmentVariable("pocket-a3-temp");
+            MailMessage mailMessage = new MailMessage(email, toMail);
+            mailMessage.Subject = subject;
+            mailMessage.Body = body;
+
+            // Create a new SmtpClient
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com");
+            smtpClient.Port = 587;
+            smtpClient.UseDefaultCredentials = false;
+            smtpClient.Credentials = new NetworkCredential(email, appPassword);
+            smtpClient.EnableSsl = true;
+            smtpClient.Send(mailMessage);
+
         }
 
-        async public Task SendGmail(string email, string subject, string body) {
-            Console.WriteLine("Logging in");
-            var credentials = await Login();
-            Console.WriteLine("Logged in");
-            Message emailMessage = CreateEmail("pocket.a3.app@gmail.com", email, subject,body );
-            using (var gmailService = new GmailService(new BaseClientService.Initializer() { HttpClientInitializer = credentials })) {
-                gmailService.Users.Messages.Send(emailMessage, "me").Execute();
-
-            }
-
-            
-        }
-
-        static Message CreateEmail(string from, string to, string subject, string body)
-        {
-            var mimeMessage = new MimeMessage();
-            mimeMessage.From.Add(new MailboxAddress("Pocket A3",from));
-            mimeMessage.To.Add(new MailboxAddress(to,to));
-            mimeMessage.Subject = subject;
-
-            mimeMessage.Body = new TextPart("plain")
-            {
-                Text = body
-            };
-
-            using (var stream = new MemoryStream())
-            {
-                mimeMessage.WriteTo(stream);
-                return new Message
-                {
-                    Raw = Convert.ToBase64String(stream.ToArray())
-                };
-            }
-        }
-        // Helper method to base64 encode the string
-        static string Base64UrlEncode(string input)
-        {
-            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
-            return Convert.ToBase64String(inputBytes)
-                .Replace('+', '-')
-                .Replace('/', '_')
-                .Replace("=", "");
-        }
     }
 }

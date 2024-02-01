@@ -30,6 +30,9 @@ namespace PocketA3.Features.Auth.Model
 
         public double? FatPercentage { get; set; }
 
+
+        public ICollection<RegisterOTP> RegisterOTP { get; set; } = new List<RegisterOTP>();
+
         public bool HaveFilledAllPublic() {
             return FullName != null && NickName != null && ProfileUrl != null && Gender != null;
         }
