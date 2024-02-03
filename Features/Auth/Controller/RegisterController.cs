@@ -45,12 +45,13 @@ namespace PocketA3.Features.Auth.Controller
         public IActionResult ValidateOTP([FromBody] RegisterOTPValidateRequestDTO otpValidateRequest)
         {
             var invalidMessage = "Invalid OTP";
-            var user = _db.RegisteringUser.AsNoTracking().FirstOrDefault(e=>e.Id.ToString()==otpValidateRequest.RegistrationId);
+            var user = _db.RegisteringUser.Include(u => u.RegisterOTP).AsNoTracking().FirstOrDefault(e=>e.Id.ToString()==otpValidateRequest.RegistrationId);
             if (user==null)
             {
                 return Conflict(invalidMessage);
             }
-            var possibleOTP = user.RegisterOTP.LastOrDefault(e=> validate(e,otpValidateRequest.OTP));
+            
+            var possibleOTP = user.RegisterOTP.LastOrDefault(e=> e.OTPHashed==HashAndSalt.HashInput(input: otpValidateRequest.OTP, salt: e.OTPSalt));
             if (possibleOTP == null)
             {
                 return Conflict(invalidMessage);
@@ -64,10 +65,7 @@ namespace PocketA3.Features.Auth.Controller
             }
         }
 
-        private bool validate(RegisterOTP e,string otp) {
-           var hashed= HashAndSalt.HashInput(input: otp, salt: e.OTPSalt);
-            return hashed == e.OTPHashed;
-        }
+     
 
 
         [HttpPost("s2-resend-otp")]

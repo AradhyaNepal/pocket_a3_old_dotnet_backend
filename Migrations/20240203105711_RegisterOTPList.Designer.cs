@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PocketA3.Features.Auth;
 
@@ -11,9 +12,11 @@ using PocketA3.Features.Auth;
 namespace PocketA3.Migrations
 {
     [DbContext(typeof(AuthApiContext))]
-    partial class AuthApiContextModelSnapshot : ModelSnapshot
+    [Migration("20240203105711_RegisterOTPList")]
+    partial class RegisterOTPList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
