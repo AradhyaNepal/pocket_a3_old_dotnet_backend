@@ -50,7 +50,7 @@ namespace PocketA3.Features.Auth.Controller
             {
                 return Conflict(invalidMessage);
             }
-            var possibleOTP = user.RegisterOTP.LastOrDefault(e=>e.OTPHashed== HashAndSalt.HashInput(input: otpValidateRequest.OTP, salt: e.OTPSalt));
+            var possibleOTP = user.RegisterOTP.LastOrDefault(e=> validate(e,otpValidateRequest.OTP));
             if (possibleOTP == null)
             {
                 return Conflict(invalidMessage);
@@ -64,6 +64,12 @@ namespace PocketA3.Features.Auth.Controller
             }
         }
 
+        private bool validate(RegisterOTP e,string otp) {
+           var hashed= HashAndSalt.HashInput(input: otp, salt: e.OTPSalt);
+            return hashed == e.OTPHashed;
+        }
+
+
         [HttpPost("s2-resend-otp")]
         public IActionResult ResendOTP(RegisterEmailRequestDTO emailRequestRequest)
         {
@@ -73,14 +79,18 @@ namespace PocketA3.Features.Auth.Controller
         private  void GenerateAndSendOTP(RegisteringUser user) {
             Random random = new();
             var otp = random.Next(100000, 999999);
-            (new SendEmailService()).SendMail(toMail: user.Email??"", body: otp.ToString(), subject: "OTP");
-            var oldOTP= _db.RegisterOTP.Where(e => e.RegisteringUser.Email == user.Email);
-            if (oldOTP.Count()>0) {
-                for (int i = 0; i < oldOTP.Count(); i++) {
+
+            (new SendEmailService()).SendMail(toMail: user.Email ?? "", body: otp.ToString(), subject: "OTP");
+            var oldOTP = _db.RegisterOTP.Where(e => e.RegisteringUser.Email == user.Email);
+            if (oldOTP.Count() > 0)
+            {
+                for (int i = 0; i < oldOTP.Count(); i++)
+                {
                     oldOTP.ElementAt(i).ExpiryDate = DateTime.Now;
                 }
             }
-           
+
+
             var otpSalt = HashAndSalt.GenerateSalt();
             var hashedOTP = HashAndSalt.HashInput(input:otp.ToString(),salt:otpSalt);
             //Todo: Check registering user is null
