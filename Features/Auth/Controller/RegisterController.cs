@@ -28,20 +28,13 @@ namespace PocketA3.Features.Auth.Controller
         }
 
         [HttpPost("s2-validate-otp")]
-        public IActionResult ValidateOTP([FromBody] RegisterEmailRequestDTO registerEmailRequest)
+        public IActionResult ValidateOTP([FromBody] RegisterOTPValidateRequestDTO otpValidateRequest)
         {
-           
-            var registeringUser = _db.RegisteringUser.FirstOrDefault(e => e.Email == registerEmailRequest.Email);
-            if (registeringUser == null)
+            var invalidMessage = "Invalid OTP";
+            var user = _db.RegisteringUser.AsNoTracking().FirstOrDefault(e=>e.Id.ToString()==otpValidateRequest.RegistrationId);
+            if (user==null)
             {
-                var newRegisteringUser = _db.RegisteringUser.Add(new RegisteringUser { Email = registerEmailRequest.Email });
-                _db.SaveChanges();
-                return Ok(RegistrationRestoreDTO.FromRegisteringUser(newRegisteringUser.Entity, true));
-            }
-            else
-            {
-                return Ok(RegistrationRestoreDTO.FromRegisteringUser(registeringUser, false));
-
+                return Conflict(invalidMessage);
             }
         }
 
