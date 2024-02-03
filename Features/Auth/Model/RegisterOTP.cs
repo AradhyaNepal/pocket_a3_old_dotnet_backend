@@ -14,7 +14,7 @@ namespace PocketA3.Features.Auth.Model
         public int RegistrationId { get; set; } 
 
 
-        public required RegisteringUser RegisteringUser { get; set; }
+        public RegisteringUser RegisteringUser { get; set; }
         public required string OTPHashed { get; set; }
 
         public required byte[] OTPSalt { get; set; }
