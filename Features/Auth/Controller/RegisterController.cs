@@ -46,6 +46,7 @@ namespace PocketA3.Features.Auth.Controller
         {
             var invalidMessage = "Invalid OTP";
             var user = _db.RegisteringUser.Include(u => u.RegisterOTP).AsNoTracking().FirstOrDefault(e=>e.Id.ToString()==otpValidateRequest.RegistrationId);
+            var successUser = _db.RegisteringUser.AsNoTracking().FirstOrDefault(e => e.Id.ToString() == otpValidateRequest.RegistrationId);
             if (user==null)
             {
                 return Conflict(invalidMessage);
@@ -61,7 +62,7 @@ namespace PocketA3.Features.Auth.Controller
                 return Conflict("OTP Expired");
             }
             else {
-                return Ok(user);
+                return Ok(RegistrationRestoreDTO.FromRegisteringUser(user));
             }
         }
 

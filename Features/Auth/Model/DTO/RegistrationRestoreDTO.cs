@@ -5,7 +5,6 @@ namespace PocketA3.Features.Auth.Model.DTO
 {
     public class RegistrationRestoreDTO
     {
-        public bool isNewlyCreated { get; set; }
         public required int RegitrationId { get; set; }
         public required bool FilledAllPublic { get; set; }
 
@@ -14,19 +13,18 @@ namespace PocketA3.Features.Auth.Model.DTO
         public required RegisterPublicDetailsResponseDTO? PublicDetails { get; set; }
         public required RegisterPrivateDetailsResponseDTO? PrivateDetails { get; set; }
 
-        static public RegistrationRestoreDTO FromRegisteringUser(RegisteringUser registeringUser,bool isNewlyCreated) {
+        static public RegistrationRestoreDTO FromRegisteringUser(RegisteringUser registeringUser) {
             return new RegistrationRestoreDTO {
                 RegitrationId = registeringUser.Id,
-                isNewlyCreated =isNewlyCreated,
                 FilledAllPublic= registeringUser.HaveFilledAllPublic(),
                 FilledAllPrivate = registeringUser.HaveFilledAllPrivate(),
-                PublicDetails = isNewlyCreated?null:new RegisterPublicDetailsResponseDTO { 
+                PublicDetails = new RegisterPublicDetailsResponseDTO { 
                    FullName=registeringUser.FullName,
                    ProfileUrl=registeringUser.ProfileUrl,
                    Gender=registeringUser.Gender,
                    NickName=registeringUser.NickName,
                },
-                PrivateDetails = isNewlyCreated ? null : new RegisterPrivateDetailsResponseDTO { 
+                PrivateDetails = new RegisterPrivateDetailsResponseDTO { 
                    BirthDate=registeringUser.BirthDate,
                    Country=registeringUser.Country,
                    MBTI=registeringUser.MBTI,
