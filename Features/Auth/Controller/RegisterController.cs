@@ -5,7 +5,7 @@ using PocketA3.Features.Auth.Model;
 using PocketA3.Features.Auth.Model.DTO;
 using static System.Net.WebRequestMethods;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-//rrrr hxcp afjp osow
+
 namespace PocketA3.Features.Auth.Controller
 {
     [ApiController]
@@ -23,12 +23,9 @@ namespace PocketA3.Features.Auth.Controller
             if (isRegistered) {
                 return Conflict("User Already Registered To The System");
             }
-
             var user = ExtractOrCreateRegisteringUser(registerEmailRequest.Email);
             GenerateAndSendOTP(user);
             return Ok(user.Id);
-
-         
         }
 
         private RegisteringUser ExtractOrCreateRegisteringUser(string email) {
@@ -63,7 +60,7 @@ namespace PocketA3.Features.Auth.Controller
                 return Conflict("OTP Expired");
             }
             else {
-                return Ok();
+                return Ok(user);
             }
         }
 
